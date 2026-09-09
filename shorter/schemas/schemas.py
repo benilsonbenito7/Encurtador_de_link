@@ -41,3 +41,10 @@ class LinkOutput(ModelSchema):
             parts.append(f"{minutes} {'minuto' if minutes == 1 else 'minutos'}")
 
         return ", ".join(parts) if parts else "0 minutos"
+
+class UpdateSchemas(ModelSchema):
+    class Meta:
+        model = Links
+        fields = "__all__"
+        fields_exclude = ["id", "creat_at"]
+        fields_optional = "__all__" 

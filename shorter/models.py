@@ -22,7 +22,9 @@ class Links(models.Model):
         super().save(*args, **kwargs)
     
     def expired(self):
-        return True if timezone.now() > self.creat_at + self.expiration_time else False
+        if not self.expiration_time:
+            return False
+        return timezone.now() > self.creat_at + self.expiration_time
     
 class Clicks(models.Model):
     link = models.ForeignKey(Links, on_delete=models.CASCADE)
