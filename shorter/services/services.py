@@ -39,17 +39,12 @@ class RedirectService:
     @staticmethod
     def update_link(link_id, link_schemas):
         link = get_object_or_404(Links, id=link_id)
-        data = link_schemas.model_dump(exclude_unset=True)
-        token = data.get('token')
+        data = link_schemas.model_dump(exclude_unset=True, exclude_none=True)
         
+        token = data.get('token')
+
         if token and Links.objects.filter(token=token).exclude(id=link_id).exists():
             return 409, {'error': f'O token {token} ja foi utilizado'}
-        
-        # Garante que campos imutáveis e tokens vazios/nulos não sobrescrevam o token existente
-        data.pop('id', None)
-        data.pop('creat_at', None)
-        if not data.get('token'):
-            data.pop('token', None)
 
         for chave, valor in data.items():
             setattr(link, chave, valor)

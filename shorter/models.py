@@ -6,7 +6,7 @@ class Links(models.Model):
     redirect_link = models.URLField()
     token = models.CharField(max_length=20, unique=True, null=True, blank=True)
     creat_at = models.DateTimeField(auto_now_add=True)
-    expiration_time = models.DurationField(null=True, blank=True) #PT2H ou PT3D e em ISO 8601
+    expiration_time = models.DurationField(null=True, blank=True) # PT2H (2 horas) ou P3D (3 dias) em ISO 8601
     max_uniques_cliques = models.PositiveIntegerField(null=True, blank=True)
     active = models.BooleanField(default=True)
     

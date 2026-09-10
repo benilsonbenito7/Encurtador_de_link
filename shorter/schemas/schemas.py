@@ -1,4 +1,5 @@
-from ninja import ModelSchema
+from datetime import timedelta
+from ninja import ModelSchema, Schema
 from ..models import Links
 
 class LinkInput(ModelSchema):
@@ -42,9 +43,8 @@ class LinkOutput(ModelSchema):
 
         return ", ".join(parts) if parts else "0 minutos"
 
-class UpdateSchemas(ModelSchema):
-    class Meta:
-        model = Links
-        fields = "__all__"
-        fields_exclude = ["id", "creat_at"]
-        fields_optional = "__all__" 
+class UpdateSchemas(Schema):
+    redirect_link: str | None = None
+    token: str | None = None
+    expiration_time: timedelta | None = None
+    max_uniques_cliques: int | None = None

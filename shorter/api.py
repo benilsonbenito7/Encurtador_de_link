@@ -13,7 +13,7 @@ def create(request, link_schema: LinkInput):
 def get_link(request, token):
     return RedirectService.get_link(token, request)
 
-@sh_router.patch("/{link_id}/", response={200: UpdateSchemas, 409: dict, 410: dict, 403: dict})
+@sh_router.patch("/{link_id}/", response={200: LinkOutput, 409: dict, 410: dict, 403: dict})
 def update_link(request, link_id: int, link_schema: UpdateSchemas):
     return RedirectService.update_link(link_id, link_schema)
 
